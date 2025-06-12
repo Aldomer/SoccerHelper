@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SoccerHelper.Classes
+﻿namespace SoccerHelper.Classes
 {
-    internal class MatchInfo
+    internal class MatchDetails
     {
         internal int TotalMinutes = 40;
         internal int NumberOfPeriods = 2;

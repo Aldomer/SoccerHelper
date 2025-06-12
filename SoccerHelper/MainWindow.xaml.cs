@@ -21,8 +21,8 @@ namespace SoccerHelper
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Lineup _lineup = new Lineup();
         private Team _team = new Team();
+        private Match _match = new Match();
 
         public MainWindow()
         {
@@ -31,10 +31,14 @@ namespace SoccerHelper
 
         private void GenerateLineups_Click(object sender, RoutedEventArgs e)
         {
-            int match = 1;
-            Int32.TryParse(txtMatch.Text, out match);
+            // Before generating a lineup they will need to say in a match who is attending?
 
-            _lineup.Generate(_team, match);
+            _team.LoadPlayerList();
+            _team.LoadPositions();
+            
+            _match.SetPlayersAvailableForMatch(_team);
+            _match.GenerateLineUps(_team);
+
             MessageBox.Show("Done");
         }
     }

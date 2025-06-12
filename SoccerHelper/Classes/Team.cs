@@ -1,74 +1,97 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SoccerHelper.Classes
 {
     internal class Team
     {
-        internal MatchInfo MatchInfo = new MatchInfo();
-
-        internal Dictionary<int, TeamMember> TeamMembers = new Dictionary<int, TeamMember>();
+        private Dictionary<string, Player> _players = new Dictionary<string, Player>();
+        private List<string> _positions = new List<string>();
 
         internal Team()
-        {
-            AddTeamMembers();
+        { 
+        
         }
 
-        internal List<string> CloneTeamMembers
+        internal void AddPlayer(string playerName)
+        {
+            if (!_players.ContainsKey(playerName))
+                _players.Add(playerName, new Player(playerName));
+        }
+
+        internal void AddPosition(string position)
+        {
+            if (!_positions.Contains(position))
+                _positions.Add(position);
+        }
+
+        internal List<string> GetPlayerNames
         {
             get
             {
-                List<string> clone = new List<string>();
+                List<string> playerNames = new List<string>();
 
-                foreach (int number in TeamMembers.Keys)
+                foreach (Player player in _players.Values)
                 {
-                    clone.Add(TeamMembers[number].Name);
+                    playerNames.Add(player.Name);
                 }
 
-                return clone;
+                return playerNames;
             }
         }
 
-        internal void AddTeamMembers()
+        internal List<string> GetPositions
         {
-            TeamMembers.Add(1, new TeamMember("Ezra"));
-            TeamMembers.Add(2, new TeamMember("Jared"));
-            TeamMembers.Add(3, new TeamMember("Evelyn"));
-            TeamMembers.Add(4, new TeamMember("Sawyer"));
-            TeamMembers.Add(5, new TeamMember("Cooper"));
+            get
+            {
+                return _positions;
+            }
+        }
 
-            //TeamMembers.Add(1, new TeamMember("Asher"));
-            //TeamMembers.Add(2, new TeamMember("Dexter"));
-            //TeamMembers.Add(3, new TeamMember("Eli"));
-            //TeamMembers.Add(4, new TeamMember("Enoch"));
-            //TeamMembers.Add(5, new TeamMember("Hazen"));
-            //TeamMembers.Add(6, new TeamMember("Isaac"));
-            //TeamMembers.Add(7, new TeamMember("Jackson"));
-            //TeamMembers.Add(8, new TeamMember("Jayce"));
+        internal bool LoadPlayerList()
+        {
+            //Phase 2 this will go to where the team data is stored and load it in
+
+            //Phase 1 Hardcoded team
+            AddPlayer("Ezra");
+            AddPlayer("Madelyn");
+            AddPlayer("Sawyer");
+            AddPlayer("Cooper");
+            AddPlayer("Zach");
+            AddPlayer("Daisy");
+            AddPlayer("Allison");
+            AddPlayer("Gage");
+
+            return true;
+        }
+
+        internal bool LoadPositions()
+        {
+            //Phase 2 this will go to where the team data is stored and load it in
+
+            //Phase 1 Hardcoded positions
+            AddPosition("Striker");
+            AddPosition("MidfielderRight");
+            AddPosition("MidfielderLeft");
+            AddPosition("Defender");
+
+            return true;
         }
 
         internal int NumberOfPlayers
         {
             get
             {
-                return TeamMembers.Count;
+                return _players.Count;
             }
         }
 
-        internal TeamMember FindPlayer(string playerName)
+        internal Player GetPlayer(string searchForThisPlayerName)
         {
-            foreach (int playerNumber in TeamMembers.Keys)
-            {
-                TeamMember teamMember = TeamMembers[playerNumber];
-
-                if (playerName == teamMember.Name)
-                    return teamMember;
-            }
-
-            return null;
+            if (_players.ContainsKey(searchForThisPlayerName))
+                return _players[searchForThisPlayerName];
+            else
+                throw new Exception($"{searchForThisPlayerName} is not part of this team");
         }
     }
 }
