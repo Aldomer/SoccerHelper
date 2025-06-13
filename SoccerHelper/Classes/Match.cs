@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SoccerHelper.Classes
 {
@@ -24,10 +25,10 @@ namespace SoccerHelper.Classes
             //    _playersOnTheBench.Enqueue(playerName);
             //}
 
-            _playersOnTheField.Enqueue("Ezra");
-            _playersOnTheField.Enqueue("Madelyn");
-            _playersOnTheField.Enqueue("Sawyer");
-            _playersOnTheField.Enqueue("Cooper");
+            _playersOnTheBench.Enqueue("Ezra");
+            _playersOnTheBench.Enqueue("Madelyn");
+            _playersOnTheBench.Enqueue("Sawyer");
+            _playersOnTheBench.Enqueue("Cooper");
 
             _playersOnTheBench.Enqueue("Zach");
             _playersOnTheBench.Enqueue("Daisy");
@@ -44,8 +45,20 @@ namespace SoccerHelper.Classes
 
                 lineUp.Generate(team, _playersOnTheField, _playersOnTheBench);
 
+                if ((_playersOnTheBench.Count + _playersOnTheField.Count) != team.NumberOfPlayers)
+                    throw new Exception($"Missing a player after completing line up for Substitution {substitutionId}");
+
                 _lineUps.Add(substitutionId, lineUp);
             }
+        }
+
+        internal Dictionary<int, LineUp> GetLineUps
+        {
+            get
+            {
+                return _lineUps;
+            }
+
         }
     }
 }

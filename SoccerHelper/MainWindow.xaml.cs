@@ -39,6 +39,8 @@ namespace SoccerHelper
             _match.SetPlayersAvailableForMatch(_team);
             _match.GenerateLineUps(_team);
 
+            OutputFile.CreateMatchInformationFile(_match);
+
             MessageBox.Show("Done");
         }
     }

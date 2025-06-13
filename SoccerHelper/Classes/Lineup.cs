@@ -37,6 +37,8 @@ namespace SoccerHelper.Classes
 
                     _lineUp.Add(position, playerNameToAddToLineUp);
                 }
+
+                MovePlayersToTheBench(playersToMoveToTheBench, playersOnTheBench);
             }
             catch (Exception exception)
             {
@@ -56,6 +58,24 @@ namespace SoccerHelper.Classes
             }
 
             return playersToMoveToTheBench;
+        }
+
+        private void MovePlayersToTheBench(Queue<string> playersToMoveToTheBench, Queue<string> playersOnTheBench)
+        {
+            int numberOfPlayerToMoveToTheBench = playersToMoveToTheBench.Count;
+
+            for (int i = 0; i < numberOfPlayerToMoveToTheBench; i++)
+            {
+                playersOnTheBench.Enqueue(playersToMoveToTheBench.Dequeue());
+            }
+        }
+
+        internal Dictionary<string, string> GetLineUp
+        {
+            get
+            {
+                return _lineUp;
+            }
         }
     }
 }
